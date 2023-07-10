@@ -11,5 +11,5 @@
 # New non version-specific approach (using Spin install script)
 curl -fsSL https://developer.fermyon.com/downloads/install.sh | bash
 su
-apt-get install -y build-essential libssl-dev pkg-config
+#apt-get install -y build-essential libssl-dev pkg-config
 mv spin /usr/local/bin/
