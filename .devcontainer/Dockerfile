@@ -6,7 +6,7 @@
 # If the examples in this repository require it, update this Dockerfile to install
 # more language toolchains (such as .NET or TinyGo).
 
-FROM ubuntu:22.04
+FROM docker:dind
 
 RUN apt-get update && apt-get install -y \
     bash                                 \
@@ -17,7 +17,9 @@ RUN apt-get update && apt-get install -y \
     golang-go                            \
     build-essential libssl-dev pkg-config\
     glibc-source                         \
+    fuse-overlayfs                       \
     ca-certificates
+    curl -sSL https://get.docker.com/ | sh
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
