@@ -28,4 +28,4 @@ jobs:
           imageName: ghcr.io/fermyon/spin-fundamentals/dev-container
           cacheFrom: ghcr.io/fermyon/spin-fundamentals/dev-container
           push: filter
-          refFilterForPush: refs/heads/main
+          refFilterForPush: refs/heads/labs-devcontainer
