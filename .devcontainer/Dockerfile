@@ -17,11 +17,6 @@ ARG TINYGO_VERSION="0.30.0"
 RUN wget "https://github.com/tinygo-org/tinygo/releases/download/v${TINYGO_VERSION}/tinygo_${TINYGO_VERSION}_${TARGETARCH}.deb" && \
     dpkg -i "tinygo_${TINYGO_VERSION}_${TARGETARCH}.deb"
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-ENV PATH="$PATH:/root/.cargo/bin"
-RUN rustup target add wasm32-wasi
-
 # Install Spin
 ARG SPIN_VERSION="v1.5.0"
 ENV PATH="$PATH:/usr/local/spin"
@@ -31,6 +26,12 @@ RUN mkdir -p /usr/local/spin && \
 
 # Set the current user before spin install for plugins/templates
 USER $USERNAME
+
+# Install Rust
+ENV PATH="$PATH:/home/$USERNAME/.cargo/bin"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- \
+    -y --target wasm32-wasi
+
 RUN spin plugins update && \
     spin plugins install check-for-update -y && \
     spin plugins install cloud -y && \
