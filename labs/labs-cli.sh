@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env bash
 
 #TODO: would it make more sense to do this in something like JS or Python?
 
@@ -24,8 +24,14 @@ labs() {
         show)
             __labs_show
             ;;
+        setup)
+            __labs_setup
+            ;;
         check)
             __labs_check
+            ;;
+        solve)
+            __labs_solve
             ;;
         -h|--help)
             __labs_usage
@@ -44,9 +50,11 @@ __labs_usage() {
     echo "  -h, --help              Show help"
     echo ""
     echo "Commands:"
-    echo "  show                    Shows the current in-progress lab"
     echo "  list                    List available labs"
+    echo "  show                    Shows the current in-progress lab"
+    echo "  setup                   Sets up the current in-progress lab"
     echo "  check                   Checks the current in-progress lab"
+    echo "  solve                   Solves the current in-progress lab"
 }
 
 __labs_show() {
@@ -67,10 +75,22 @@ __labs_list() {
     echo "-------------------------------------------------------------------------------------------------------"
 }
 
+__labs_setup() {
+    local lab="$(__labs_current)"
+    __lab_get "$lab"
+    lab-${lab_number}-setup
+}
+
 __labs_check() {
     local lab="$(__labs_current)"
     __lab_get "$lab"
     lab-${lab_number}-check
+}
+
+__labs_solve() {
+    local lab="$(__labs_current)"
+    __lab_get "$lab"
+    lab-${lab_number}-solve
 }
 
 __labs_current() {
