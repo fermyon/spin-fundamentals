@@ -32,6 +32,7 @@ ENV PATH="$PATH:/home/$USERNAME/.cargo/bin"
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- \
     -y --target wasm32-wasi
 
+# Install Spin Plugins & Templates
 RUN spin plugins update && \
     spin plugins install check-for-update -y && \
     spin plugins install cloud -y && \
@@ -40,3 +41,6 @@ RUN spin plugins update && \
     spin templates install --upgrade --git https://github.com/fermyon/spin && \
     spin templates install --upgrade --git https://github.com/fermyon/spin-js-sdk && \
     spin templates install --upgrade --git https://github.com/fermyon/spin-python-sdk
+
+# Source the labs-cli.sh for the default shell
+RUN echo ". /workspaces/spin-fundamentals/labs/labs-cli.sh" >> $HOME/.zshenv
